@@ -1,0 +1,54 @@
+ls -al ~/.ssh
+git config --global user.name HongzhengTian
+git config --global user.email hongzhet@uci.edu
+ssh-keygen -t rsa -C hongzhet@uci.edu
+
+mkdir myProjects
+mkdir otherProjects
+cd otherProjects/
+   
+git clone https://github.com/llvm/llvm-project.git
+cd llvm-project && git checkout 2b4807ba044230ed6243f5c3a1329a9344de758d
+mkdir build
+
+cd ../../
+wget https://repo.anaconda.com/archive/Anaconda3-2023.07-2-Linux-x86_64.sh
+bash Anaconda3-2023.07-2-Linux-x86_64.sh 
+source ~/.bashrc
+
+cd otherProjects/llvm-project/
+conda create -n mlirdev python=3.10
+conda activate mlirdev
+python -m pip install --upgrade pip
+python -m pip install -r mlir/python/requirements.txt 
+conda install cuda -c nvidia
+
+cd build/
+mkdir -p $HOME/usr/local/llvm
+cmake -G Ninja ../llvm    -DLLVM_ENABLE_PROJECTS='mlir;lld;clang'    -DLLVM_BUILD_EXAMPLES=ON    -DLLVM_TARGETS_TO_BUILD="X86;NVPTX"    -DCMAKE_BUILD_TYPE=Release    -DLLVM_ENABLE_ASSERTIONS=ON    -DLLVM_BUILD_TOOLS=ON    -DLLVM_INSTALL_UTILS=ON    -DCMAKE_INSTALL_PREFIX=$HOME/usr/local/llvm    -DMLIR_ENABLE_BINDINGS_PYTHON=ON    -DMLIR_ENABLE_CUDA_RUNNER=ON
+cmake --build . --target install
+
+cd ../../../
+cd myProjects/
+mkdir pycova
+cd pycova/
+
+git init
+git remote add origin git@github.com:hongzhengTian/PyCova.git
+git fetch origin main
+git checkout -b main origin/main
+git pull origin main
+
+mkdir build
+cd build/
+ulimit -n 4096
+cmake -G Ninja .. -DMLIR_DIR=$HOME/usr/local/llvm/lib/cmake/mlir -DLLVM_DIR=$HOME/usr/local/llvm/lib/cmake/llvm -DLLVM_EXTERNAL_LIT=$HOME/otherProjects/llvm-project/build/bin/llvm-lit -DMLIR_ENABLE_BINDINGS_PYTHON=ON
+cmake --build . --target check-pylogalg
+cd ../
+export PYTHONPATH=$HOME/usr/local/llvm/python_packages/mlir_core
+export PYTHONPATH=$PYTHONPATH:$PWD/build/python_packages/pylogalg/
+export PYTHONPATH=$PYTHONPATH:$PWD/pylog-frontend/
+
+pip install astpretty
+cd pylog-test/testAdd/
+python testAdd.py 

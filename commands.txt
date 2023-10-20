@@ -1,0 +1,154 @@
+    1  exit
+    2  ls
+    3  tmux
+    4  python
+    5  python3
+    6  exit
+    7  mkdir myhome
+    8  cd myhome/m4/
+    9  cd myhome/
+   10  ninja
+   11  apt install ninja-build
+   12  mkdir re2c
+   13  cd re2c
+   14  tar -xvzf re2c-3.0.tar.lz
+   15  tar -xvzf re2c-3.0.tar.gz
+   16  cd re2c-3.0/
+   17  autoreconf -i -W all
+   18  ./configure
+   19  make 
+   20  make install
+   21  autoreconf -i -W all
+   22  ./configure && make && make install
+   23  cd ../../
+   24  mkdir ninja
+   25  git clone git://github.com/ninja-build/ninja.git && cd ninja
+   26  ls
+   27  cd re2c/
+   28  cd re2c-3.0/
+   29  mkdir m4
+   30  autoreconf -i -W all
+   31  apt-get install libtool
+   32  brew install libtool
+   33  apt install libtool
+   34  wget
+   35  cd ../
+   36  wget http://mirrors.kernel.org/gnu/m4/m4-1.4.13.tar.gz
+   37  git clone git://github.com/ninja-build/ninja.git && cd ninja
+   38  ls
+   39  wget http://ftp.gnu.org/gnu/m4/m4-1.4.19.tar.gz
+   40  tar -xzvf m4-1.4.19.tar.gz 
+   41  cd m4-1.4.19/
+   42  ./configure
+   43  make && make install
+   44  cd ../../
+   45  cd ..
+   46  mkdir usr
+   47  cd myhome/m4/m4-1.4.19/
+   48  ./configure -prefix=~/usr/local
+   49  ./configure -prefix=home/tianho/usr/local
+   50  ./configure -prefix=/home/tianho/usr/local
+   51  make && make install
+   52  cd ..
+   53  mkdir autoconf
+   54  cd autoconf/
+   55  wget wget https://ftp.gnu.org/gnu/autoconf/autoconf-2.71.tar.gz
+   56  tar -xzvf autoconf-2.71.tar.gz 
+   57  cd autoconf-2.71/
+   58  ./configure -prefix=/home/tianho/usr/local
+   59  make && make install
+   60  cd ../../
+   61  mkdir automake
+   62  cd automake/
+   63  wget https://ftp.gnu.org/gnu/automake/automake-1.16.5.tar.gz
+   64  tar -xzvf automake-1.16.5.tar.gz 
+   65  cd automake-1.16.5/
+   66  ./configure -prefix=/home/tianho/usr/local
+   67  make && make install
+   68  cd ../../
+   69  ls
+   70  mkdir libtool
+   71  cd libtool/
+   72  wget https://gnu.mirror.constant.com/libtool/libtool-2.4.5.tar.gz
+   73  tar -xzvf libtool-2.4.5.tar.gz 
+   74  cd libtool-2.4.5/
+   75  ./configure -prefix=/home/tianho/usr/local
+   76  make && make install
+   77  cd ../../
+   78  cd re2c/
+   79  ls
+   80  tar -xzvf re2c-3.0.tar.gz 
+   81  cd re2c-3.0/
+   82  autoreconf -i -W all
+   83  exit
+   84  cd myhome/re2c/
+   85  cd re2c-3.0/
+   86  autoreconf -i -W all
+   87  which m4
+   88  export PATH="/home/tianho/usr/bin:$PATH"
+   89  autoreconf -i -W all
+   90  export PATH="/home/tianho/usr/local/bin:$PATH"
+   91  autoreconf -i -W all
+   92  export PATH="/home/tianho/myhome/m4:$PATH"
+   93  autoreconf -i -W all
+   94  ./configure -prefix=/home/tianho/usr/local
+   95  make && make install
+   96  cd ../../ninja/
+   97  git clone git://github.com/ninja-build/ninja.git && cd ninja
+   98  ls
+   99  git clone https://github.com/ninja-build/ninja.git
+  100  ./configure.py --bootstrap
+  101  ls
+  102  cd ninja/
+  103  ./configure.py --bootstrap
+  104  cp ninja /home/tianho/usr/local/bin/
+  105  cd ../../
+  106  ninja --version
+  107  ls
+  108  git clone https://github.com/llvm/llvm-project.git
+  109  cd llvm-project/
+  110  mkdir build
+  111  cd build/
+  112  cmake -G Ninja ../llvm    -DLLVM_ENABLE_PROJECTS=mlir    -DLLVM_BUILD_EXAMPLES=ON    -DLLVM_TARGETS_TO_BUILD="Native;NVPTX;AMDGPU"    -DCMAKE_BUILD_TYPE=Release    -DLLVM_ENABLE_ASSERTIONS=ON
+  113  which cmake
+  114  cmake --version
+  115  cd ../../
+  116  mkdir cmake
+  117  cd cmake/
+  118  tar -xzvf cmake-3.27.0-rc3.tar.gz 
+  119  ls
+  120  cd cmake-3.27.0-rc3/
+  121  ./bootstrap 
+  122  ./bootstrap -DCAMKE_USE_OPENSSL=OFF
+  123  ./bootstrap -DCMAKE_USE_OPENSSL=OFF
+  124  make && make install
+  125  ./configure -DCMAKE_USE_OPENSSL=OFF
+  126  ./configure -prefix=/home/tianho/usr/local
+  127  ls
+  128  ./bootstrap -- -DCMAKE_USE_OPENSSL=OFF
+  129  make && make install
+  130  ls
+  131  vi Makefile
+  132  make clean
+  133  which cmake
+  134  cmake -DCMAKE_INSTALL_PREFIX=/home/tianho/usr/bin/cmake
+  135  make && make install
+  136  exit
+  137  cd myhome/
+  138  ls
+  139  cd llvm-project/
+  140  cd build/
+  141  ls
+  142  which cmake
+  143  cmake -G Ninja ../llvm    -DLLVM_ENABLE_PROJECTS=mlir    -DLLVM_BUILD_EXAMPLES=ON    -DLLVM_TARGETS_TO_BUILD="Native;NVPTX;AMDGPU"    -DCMAKE_BUILD_TYPE=Release    -DLLVM_ENABLE_ASSERTIONS=ON
+  144  cmake --build . --target check-mlir
+  145  bin/toyc-ch2 ../mlir/test/Examples/Toy/Ch2/codegen.toy -emit=mlir -mlir-print-debuginfo
+  146  bin/toyc-ch2 ../mlir/test/Examples/Toy/Ch2/codegen.toy -emit=mlir
+  147  bin/toyc-ch2 ../mlir/test/Examples/Toy/Ch2/codegen.toy -emit=mlir -opt
+  148  exit
+  149  history -> commands.txt
+  150  history
+  151  cat history > commands.txt
+  152  ls
+  153  history 
+  154  history > commands.txt

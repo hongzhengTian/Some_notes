@@ -1,0 +1,11 @@
+cmake -G "Unix Makefiles" ../llvm \
+     -DLLVM_ENABLE_PROJECTS=mlir \
+     -DLLVM_BUILD_EXAMPLES=ON \
+     -DLLVM_TARGETS_TO_BUILD="host" \
+     -DCMAKE_BUILD_TYPE=Release \
+     -DLLVM_ENABLE_ASSERTIONS=ON \
+     -DMLIR_ENABLE_BINDINGS_PYTHON=BOOL \
+     -DPYTHON3_EXECUTABLE=STRING
+
+在mlir/test/Examples/Toy/Ch5里面
+mlir-tblgen -gen-op-defs ../../../../examples/toy/Ch2/include/toy/Ops.td -I ../../../../include/
