@@ -17,3 +17,9 @@ ln -s /home/<your-name>/<your-file-path>/ /home/data/<your-name>/<your-file-path
 ```sh
 du -h --max-depth=1 . | sort -h 
 ```
+
+or
+
+```sh
+@pandora:/home$ sudo du -sh * | sort -h
+```
